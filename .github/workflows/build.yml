@@ -1,0 +1,24 @@
+name: Building Custom FFmpeg library for MX Player
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  building_lib:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2.3.4
+      - name: build
+        run: |
+          ./build.sh
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: ${{ env.ARTIFACT_PATH }}
+          name: ${{ env.ARTIFACT_NAME }}
+
