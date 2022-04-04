@@ -14,7 +14,7 @@ CPUs=$(cat /proc/cpuinfo| grep "processor"| wc -l)
 sed -i "s/CPU_CORE=[0-9]*/CPU_CORE=$CPUs/g" ffmpeg/JNI/build-ffmpeg.sh
 sed -i "s/CPU_CORE=[0-9]*/CPU_CORE=$CPUs/g" ffmpeg/JNI/build.sh
 
-aria2c  
+aria2c $ndk_url
 7za x android-ndk-r20b-linux-x86_64.zip
 export NDK=$(pwd)/android-ndk-r20b
 cd ffmpeg/JNI
@@ -29,4 +29,7 @@ rename arm64-v8a neon64
 rename armeabi-v7a neon
 rename x86 x86
 rename x86_64 x86_64
+
+echo "ARTIFACT_PATH=$(pwd)/$aio" >> $GITHUB_ENV
+echo "ARTIFACT_NAME=$aio" >> $GITHUB_ENV
 
